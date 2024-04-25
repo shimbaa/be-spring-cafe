@@ -45,7 +45,7 @@
                             <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
                         </ul>
                     </li>
-                    <li><a href="../user/list.html"><i class="glyphicon glyphicon-user"></i></a></li>
+                    <li><a href="../user/list"><i class="glyphicon glyphicon-user"></i></a></li>
                 </ul>
             </div>
         </div>
@@ -61,7 +61,7 @@
                    data-toggle="dropdown"><i class="glyphicon glyphicon-home" style="color:#dd1111;"></i> Home <small><i
                         class="glyphicon glyphicon-chevron-down"></i></small></a>
                 <ul class="nav dropdown-menu">
-                    <li><a href="../user/profile.html"><i class="glyphicon glyphicon-user" style="color:#1111dd;"></i>
+                    <li><a href="../user/profile"><i class="glyphicon glyphicon-user" style="color:#1111dd;"></i>
                         Profile</a></li>
                     <li class="nav-divider"></li>
                     <li><a href="#"><i class="glyphicon glyphicon-cog" style="color:#dd1111;"></i> Settings</a></li>
@@ -76,12 +76,24 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse2">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="../index.html">Posts</a></li>
-                    >
-                    <li><a href="../user/login.html" role="button">로그인</a></li>
-                    <li><a href="../user/add" role="button">회원가입</a></li>
-                    <li><a href="#" role="button">로그아웃</a></li>
-                    <li><a href="#" role="button">개인정보수정</a></li>
+                    <li class="active"><a href="../">Posts</a></li>
+                    <!--                    현재 상태가 로그인 상태이면 상단 메뉴에서 “로그아웃”, “개인정보수정”이 표시되어야 한다.-->
+                    <!--                    현재 상테가 로그인 상태가 아니라면 상단 메뉴에서 “로그인”, “회원가입”이 표시되어야 한다.-->
+                    <li th:if="${user == null}">
+                        <a href="../user/login" role="button">로그인</a>
+                    </li>
+                    <li th:if="${user == null}">
+                        <a href="../user/add" role="button">회원가입</a>
+                    </li>
+                    <li th:if="${user != null}">
+                        <form th:action="@{/user/logout}" method="post">
+                            <button type="submit" class="btn btn-link"><i class="glyphicon glyphicon-log-out"></i> 로그아웃
+                            </button>
+                        </form>
+                    </li>
+                    <li th:if="${user != null}">
+                        <a href="#" role="button"><i class="glyphicon glyphicon-edit"></i> 개인정보수정</a>
+                    </li>
                 </ul>
             </div>
         </div>

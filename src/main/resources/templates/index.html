@@ -4,7 +4,7 @@
 <div th:replace="~{fragment/fragments :: header}"></div>
 <body>
 <div th:replace="~{fragment/fragments :: navbar}"></div>
-<div th:replace="~{fragment/fragments :: sub_navbar}"></div>
+<div th:replace="~{fragment/fragments :: sub_navbar(user=${user})}"></div>
 
 <div class="container" id="main">
     <div class="col-md-12 col-sm-12 col-lg-10 col-lg-offset-1">

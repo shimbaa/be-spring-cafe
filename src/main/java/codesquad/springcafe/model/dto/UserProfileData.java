@@ -1,4 +1,4 @@
-package codesquad;
+package codesquad.springcafe.model.dto;
 
 public class UserProfileData {
     private String userId;

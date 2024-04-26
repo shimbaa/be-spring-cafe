@@ -76,6 +76,7 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse2">
                 <ul class="nav navbar-nav navbar-right">
+                    <li th:if="${user != null}" class="active" th:text="${user.userId}"></li>
                     <li class="active"><a href="../">Posts</a></li>
                     <!--                    현재 상태가 로그인 상태이면 상단 메뉴에서 “로그아웃”, “개인정보수정”이 표시되어야 한다.-->
                     <!--                    현재 상테가 로그인 상태가 아니라면 상단 메뉴에서 “로그인”, “회원가입”이 표시되어야 한다.-->

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
@@ -71,7 +72,8 @@ public class UserController {
     }
 
     @PostMapping("/user/login")
-    public String login(@ModelAttribute UserLoginData loginData, HttpServletRequest request) {
+    public String login(@ModelAttribute UserLoginData loginData, @RequestParam(defaultValue = "/") String redirectURL,
+                        HttpServletRequest request) {
         logger.info("LOGIN TRY USER ID : {}", loginData.getUserId());
         logger.info("LOGIN TRY PASSWORD : {}", loginData.getPassword());
 
@@ -87,7 +89,7 @@ public class UserController {
 
                 logger.info("LOGIN SUCCESS USER ID : {}", loginData.getUserId());
                 logger.info("LOGIN SUCCESS PASSWORD : {}", loginData.getPassword());
-                return "redirect:/";
+                return "redirect:" + redirectURL;
             }
             return "user/login_failed";
         }
@@ -101,5 +103,11 @@ public class UserController {
             session.invalidate();
         }
         return "redirect:/";
+    }
+
+    @GetMapping("/user/edit")
+    public String edit() {
+
+        return "user/edit_form";
     }
 }

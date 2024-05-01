@@ -10,13 +10,17 @@
         <div class="panel panel-default content-main">
             <form name="question" method="post" action="/user/edit">
                 <div class="form-group">
+                    <input type="hidden" name="id" th:value="${user.id}">
+                </div>
+                <div class="form-group">
                     <label for="name">이름</label>
                     <input class="form-control" id="name" name="name" th:placeholder="'현재 이름 : ' + ${user.name}"
                            placeholder="Name">
                 </div>
                 <div class="form-group">
                     <label for="email">이메일</label>
-                    <input type="email" class="form-control" id="email" name="email" th:placeholder="'현재 이메일 : ' + ${user.email}"
+                    <input type="email" class="form-control" id="email" name="email"
+                           th:placeholder="'현재 이메일 : ' + ${user.email}"
                            placeholder="Email">
                 </div>
                 <button type="submit" class="btn btn-success clearfix pull-right">회원정보 수정</button>

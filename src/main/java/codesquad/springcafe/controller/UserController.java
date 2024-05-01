@@ -2,6 +2,7 @@ package codesquad.springcafe.controller;
 
 
 import codesquad.springcafe.SessionConst;
+import codesquad.springcafe.model.dto.UserEditData;
 import codesquad.springcafe.model.dto.UserLoginData;
 import codesquad.springcafe.model.dto.UserProfileData;
 import codesquad.springcafe.model.User;
@@ -119,6 +120,12 @@ public class UserController {
                 return "user/editForm";
             }
         }
+        return "index";
+    }
+
+    @PostMapping("/user/edit")
+    public String edit(@RequestParam Long id, @ModelAttribute UserEditData editData) {
+        userRepository.editUserInfo(id, editData);
         return "index";
     }
 }

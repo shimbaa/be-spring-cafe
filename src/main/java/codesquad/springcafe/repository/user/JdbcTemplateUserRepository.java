@@ -53,7 +53,7 @@ public class JdbcTemplateUserRepository implements UserRepository {
 
     @Override
     public Optional<User> findByUserId(String userId) {
-        String sql = "select user_id, password, name, email from users where user_id = :userId";
+        String sql = "select id, user_id, password, name, email from users where user_id = :userId";
         try {
             Map<String, Object> param = Map.of("userId", userId);
             User user = template.queryForObject(sql, param, userRowMapper());
@@ -65,6 +65,7 @@ public class JdbcTemplateUserRepository implements UserRepository {
 
     private RowMapper<User> userRowMapper() {
         return (rs, rowNum) -> new User(
+                rs.getLong("id"),
                 rs.getString("user_id"),
                 rs.getString("password"),
                 rs.getString("name"),

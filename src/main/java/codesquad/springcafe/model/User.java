@@ -12,7 +12,8 @@ public class User {
 
     private String email;
 
-    public User(String userId, String password, String name, String email) {
+    public User(Long id, String userId, String password, String name, String email) {
+        this.id = id;
         this.userId = userId;
         this.password = password;
         this.name = name;
@@ -21,6 +22,10 @@ public class User {
 
     public boolean isPasswordEquals(String password) {
         return password.equals(this.password);
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getUserId() {
@@ -47,7 +52,8 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "userId='" + userId + '\'' +
+                "id=" + id +
+                ", userId='" + userId + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +

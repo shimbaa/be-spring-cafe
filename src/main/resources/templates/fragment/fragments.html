@@ -93,7 +93,10 @@
                         </form>
                     </li>
                     <li th:if="${user != null}">
-                        <a href="#" role="button"><i class="glyphicon glyphicon-edit"></i> 개인정보수정</a>
+                        <form action="../user/edit" method="get">
+                            <input type="hidden" name="userId" th:value="${user.userId}" />
+                            <button type="submit"><i class="glyphicon glyphicon-edit"></i> 개인정보수정</button>
+                        </form>
                     </li>
                 </ul>
             </div>

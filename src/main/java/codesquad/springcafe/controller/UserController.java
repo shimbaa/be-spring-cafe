@@ -32,7 +32,7 @@ public class UserController {
 
     @GetMapping("/user/add")
     public String userForm() {
-        return "user/form";
+        return "user/addForm";
     }
 
     @PostMapping("/user/add")
@@ -66,10 +66,10 @@ public class UserController {
         return null;
     }
 
-    @GetMapping("/user/login")
-    public String login() {
-        return "user/login";
-    }
+//    @GetMapping("/user/login")
+//    public String login() {
+//        return "user/login";
+//    }
 
     @PostMapping("/user/login")
     public String login(@ModelAttribute UserLoginData loginData, @RequestParam(defaultValue = "/") String redirectURL,
@@ -106,8 +106,20 @@ public class UserController {
     }
 
     @GetMapping("/user/edit")
-    public String edit() {
+    public String edit(@RequestParam String userId, HttpServletRequest request, Model model) {
+        logger.info("METHOD EDIT CALLED");
+        HttpSession session = request.getSession(false);
+        Object value = session.getAttribute(SessionConst.LOGIN_MEMBER);
+        if (value != null) {
+            User user = (User) value;
+            logger.info("LOGGED IN USER : {}", user.getUserId());
+            logger.info("REQUESTED QUERYSTRING VALUE : {}", userId);
+            if (user.getUserId().equals(userId)) {
+                model.addAttribute("user", user);
+                return "user/editForm";
+            }
+        }
 
-        return "user/edit_form";
+        return "index";
     }
 }

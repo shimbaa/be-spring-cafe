@@ -1,6 +1,7 @@
 package codesquad.springcafe.repository.user;
 
 import codesquad.springcafe.model.User;
+import codesquad.springcafe.model.dto.UserEditData;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -71,5 +73,18 @@ public class JdbcTemplateUserRepository implements UserRepository {
                 rs.getString("name"),
                 rs.getString("email")
         );
+    }
+
+    @Override
+    public void editUserInfo(Long id, UserEditData editData) {
+        String sql = "UPDATE USERS " +
+                "SET NAME = :name, EMAIL = :email WHERE ID = :id";
+
+        SqlParameterSource param = new MapSqlParameterSource()
+                .addValue("name", editData.getName())
+                .addValue("email", editData.getEmail())
+                .addValue("id", id);
+
+        template.update(sql, param);
     }
 }

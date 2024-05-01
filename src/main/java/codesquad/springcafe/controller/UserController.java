@@ -106,20 +106,19 @@ public class UserController {
     }
 
     @GetMapping("/user/edit")
-    public String edit(@RequestParam String userId, HttpServletRequest request, Model model) {
-        logger.info("METHOD EDIT CALLED");
+    public String editForm(@RequestParam String requestUserId, HttpServletRequest request, Model model) {
+
         HttpSession session = request.getSession(false);
-        Object value = session.getAttribute(SessionConst.LOGIN_MEMBER);
-        if (value != null) {
-            User user = (User) value;
-            logger.info("LOGGED IN USER : {}", user.getUserId());
-            logger.info("REQUESTED QUERYSTRING VALUE : {}", userId);
-            if (user.getUserId().equals(userId)) {
-                model.addAttribute("user", user);
+        Object userObj = session.getAttribute(SessionConst.LOGIN_MEMBER);
+
+        if (userObj instanceof User loginUser) {
+            String loginUserUserId = loginUser.getUserId();
+
+            if (loginUserUserId.equals(requestUserId)) {
+                model.addAttribute("user", loginUser);
                 return "user/editForm";
             }
         }
-
         return "index";
     }
 }

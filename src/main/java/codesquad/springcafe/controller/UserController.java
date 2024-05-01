@@ -106,7 +106,7 @@ public class UserController {
     }
 
     @GetMapping("/user/edit")
-    public String editForm(@RequestParam String requestUserId, HttpServletRequest request, Model model) {
+    public String editForm(@RequestParam("userId") String requestUserId, HttpServletRequest request, Model model) {
 
         HttpSession session = request.getSession(false);
         Object userObj = session.getAttribute(SessionConst.LOGIN_MEMBER);
